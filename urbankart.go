@@ -6,12 +6,12 @@ import (
 )
 
 type shopping interface {
-	Adduser() (bool, []customer)
-	Placeorder()
-	Getorder()
-	Getproduct()
-	Modifyorder() []customer
-	Cancelorder() []customer
+	Adduser(customer, []customer) (bool, []customer)
+	Placeorder(string, string, int, []customer, []Products) []Products
+	Getorder(string, []customer)
+	Getproduct([]Products)
+	Modifyorder(string, []customer) []customer
+	Cancelorder(string, []customer) []customer
 }
 
 //customer is
@@ -51,8 +51,8 @@ func Adddeliveryrep(n, m, p string, drep []deliveryrep) (bool, []deliveryrep) {
 }
 
 //Adduser is...
-func Adduser(n, m, p string, users []customer) (bool, []customer) {
-	u := customer{name: n, mobile: m, place: p}
+func (c customer) Adduser(cust customer, users []customer) (bool, []customer) {
+	u := customer{name: cust.name, mobile: cust.mobile, place: cust.place}
 	for i := 0; i < len(users); i++ {
 		if u.mobile == users[i].mobile {
 			fmt.Println("Number exists")
@@ -60,13 +60,13 @@ func Adduser(n, m, p string, users []customer) (bool, []customer) {
 		}
 	}
 	users = append(users, u)
-	//fmt.Println(users)
+	fmt.Println(users)
 	fmt.Println("User Succesfully registered")
 	return true, users
 }
 
 //Getproduct is
-func Getproduct(productlist []Products) {
+func (c customer) Getproduct(productlist []Products) {
 	fmt.Println("the store offers the following items in the store:")
 	fmt.Println("Product", "->", "Quantity")
 	for _, j := range productlist {
@@ -75,7 +75,7 @@ func Getproduct(productlist []Products) {
 }
 
 //Placeorder is
-func Placeorder(mob string, pt string, pq int, users []customer, plist []Products) []Products {
+func (c customer) Placeorder(mob string, pt string, pq int, users []customer, plist []Products) []Products {
 	ord := Products{pt, pq}
 	for i := 0; i < len(users); i++ {
 		if mob == users[i].mobile {
@@ -92,7 +92,7 @@ func Placeorder(mob string, pt string, pq int, users []customer, plist []Product
 }
 
 //Getorder is
-func Getorder(mob string, users []customer) {
+func (c customer) Getorder(mob string, users []customer) {
 	for i := 0; i < len(users); i++ {
 		if mob == users[i].mobile {
 			fmt.Println("Customer ", users[i].name, " ordered the follwing items:")
@@ -102,7 +102,7 @@ func Getorder(mob string, users []customer) {
 }
 
 //Modifyorder is
-func Modifyorder(mob string, users []customer) []customer {
+func (c customer) Modifyorder(mob string, users []customer) []customer {
 	var j int
 	for i := 0; i < len(users); i++ {
 		if mob == users[i].mobile {
@@ -141,7 +141,7 @@ func Modifyorder(mob string, users []customer) []customer {
 }
 
 //Cancelorder is
-func Cancelorder(mob string, users []customer) []customer {
+func (c customer) Cancelorder(mob string, users []customer) []customer {
 	var j int
 	for i := 0; i < len(users); i++ {
 		if mob == users[i].mobile {
@@ -156,11 +156,14 @@ func Cancelorder(mob string, users []customer) []customer {
 	return users
 }
 func main() {
-	users := []customer{}
-	u1 := customer{name: "vamsi", mobile: "9123456780", place: "a"}
-	u2 := customer{name: "krishna", mobile: "1234567890", place: "b"}
-	u3 := customer{name: "jaya", mobile: "2345678901", place: "c"}
-	users = append(users, u1, u2, u3)
+	var i shopping
+	var c customer
+	i = c
+	users := make([]customer, 0)
+	//u1 := customer{name: "vamsi", mobile: "9123456780", place: "a"}
+	//u2 := customer{name: "krishna", mobile: "1234567890", place: "b"}
+	//u3 := customer{name: "jaya", mobile: "2345678901", place: "c"}
+	//users = append(users, u1, u2, u3)
 	productlist := []Products{}
 	p1 := Products{"tv", 600}
 	p2 := Products{"mobile", 800}
@@ -172,16 +175,16 @@ func main() {
 	dr2 := deliveryrep{dname: "john", dnum: "2356214527", dplace: "fcv"}
 	dr3 := deliveryrep{dname: "carl", dnum: "2323276527", dplace: "ws"}
 	dreps = append(dreps, dr1, dr2, dr3)
-	var n, m, p string
+	var m string
 	var dn, dm, dp string
 	fmt.Println("enter name")
-	fmt.Scanf("%s", &n)
+	fmt.Scanf("%s", &c.name)
 	fmt.Scanln()
 	fmt.Println("enter mobile")
-	fmt.Scanf("%s", &m)
+	fmt.Scanf("%s", &c.mobile)
 	fmt.Scanln()
 	fmt.Println("enter place")
-	fmt.Scanf("%s", &p)
+	fmt.Scanf("%s", &c.place)
 	var choice int
 	for {
 		fmt.Println("")
@@ -193,19 +196,19 @@ func main() {
 		fmt.Println("5.Modify Order")
 		fmt.Println("6.Cancel Order")
 		fmt.Println("7.Exit")
-		fmt.Println("8.Add Delivery Rep")
-		fmt.Println("9.View Delivery Rep")
+		//fmt.Println("8.Add Delivery Rep")
+		//fmt.Println("9.View Delivery Rep")
 		fmt.Println("")
 		fmt.Println("Enter your choice")
 		fmt.Scanln(&choice)
 
 		switch choice {
 		case 1:
-			a, b := (Adduser(n, m, p, users))
+			a, b := i.Adduser(c, users)
 			fmt.Println(a)
 			users = b
 		case 2:
-			Getproduct(productlist)
+			i.Getproduct(productlist)
 		case 3:
 			pt := ""
 			pq := 0
@@ -215,21 +218,20 @@ func main() {
 			fmt.Println("enter quantity")
 			fmt.Scanf("%d", &pq)
 			fmt.Scanln()
-			p := Placeorder(m, pt, pq, users, productlist)
+			p := i.Placeorder(m, pt, pq, users, productlist)
 			productlist = p
 			fmt.Println("Remaining Products:", productlist)
 		case 4:
-			Getorder(m, users)
+			i.Getorder(m, users)
 		case 5:
-			users = Modifyorder(m, users)
+			users = i.Modifyorder(m, users)
 		case 6:
-			users = Cancelorder(m, users)
+			users = i.Cancelorder(m, users)
 			fmt.Println("the order has been cancelled", users)
 		case 7:
 			fmt.Println("Exiting...")
 			os.Exit(1)
 		case 8:
-
 			fmt.Println("enter drep name")
 			fmt.Scanf("%s", &dn)
 			fmt.Scanln()
@@ -241,8 +243,8 @@ func main() {
 			a, b := (Adddeliveryrep(dn, dm, dp, dreps))
 			fmt.Println(a)
 			dreps = b
-		case 9:
-			fmt.Println(dreps)
+			/*case 9:
+			fmt.Println(dreps)*/
 
 		}
 	}
