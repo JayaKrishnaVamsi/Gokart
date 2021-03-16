@@ -1,0 +1,56 @@
+#f1{
+    border: 5px blue solid;
+    padding: 5px 5px 5px 5px;
+    background-color: antiquewhite;
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPHkNp1hbt1WOOrGV7lnlQ7YoZjRq1jRfzlA&usqp=CAU');
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-size: large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+body{
+    background-color: goldenrod ;
+    font-size: large;
+    
+}
+#pic{
+    position: absolute;
+    right: 900px;
+    top:100px;
+    animation-name: example;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-direction:normal;
+    animation-timing-function: linear;
+    
+}
+input{
+    font-size: large;
+}
+[class^="b"]{
+    padding: 5px 5px 5px 5px;
+}
+[class="b2"]{
+    padding: 5px 5px 5px 5px;
+}
+[class="b1"]:hover{
+    background-color: rgb(87, 231, 87);
+    border: 2px greenyellow ridge;
+}
+[class="b2"]:hover{
+    background-color:indianred;
+    border: 2px crimson groove;
+}
+@keyframes example{
+    from{transform: rotateY(0deg);}
+    to{transform: rotateY(360deg);}
+}
+#about{
+    font-size: large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: italic;
+    border: 5px blue solid;
+    padding: 5px 5px 5px 5px;
+    background-color: yellow;
+    margin: 10px 10px 10px 10px;
+}

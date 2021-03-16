@@ -1,0 +1,51 @@
+@keyframes anim2{
+    from{color:royalblue;}
+    to{color: gold;}
+}
+td,th{
+    border: 3px green solid;
+    width: 250px;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
+}
+img{
+    width: 250px;
+    height: 250px;
+}
+#pa{
+    font-size: 40px;
+    background-color: mediumaquamarine;
+    animation-name: anim2;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+}
+table{
+    margin: 40px 40px 40px 40px;
+    padding: 5px 5px 5px 5px;
+    align-items: center;
+}
+#tb{
+    background-color: linen;
+}
+body{
+    background-color: midnightblue;
+}
+[class^="b"]{
+    padding: 10px 10px 10px 10px;
+    position: relative;
+    left: 600px;
+}
+
+[class="b1"]:hover{
+    background-color: rgb(87, 231, 87);
+    border: 2px greenyellow ridge;
+    
+   
+}
+[class="b2"]:hover{
+    background-color:indianred;
+    border: 2px crimson groove;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Register Form</title>
+    <link rel="stylesheet" href="kartcss.css">
+</head>
+
+<body>
+<center>
+<form id="f1" action=".\products.html" method="POST">
+<i><h1>Registration Form</h1></i>
+<label for="user">Username</label>
+<input type="text" name="user" id="user" required autofocus >
+<br></br>
+<label for="pass">Password</label>
+<input type="password" name="pwd" id="pass" required>
+<div id="pic">
+<img src="download.png" >
+</div>
+<br>
+</br>
+<b>Select Gender</b>
+<label for="male">Male</label>
+<input type="radio" name="check" id="male">
+<label for="female">Female</label>
+<input type="radio" name="check" id="female">
+<br>
+</br>
+<label for="phn">Phone</label>
+<input type="text" name="phone" id="phn"  pattern="[0-9]{10}"required>
+<br>
+</br>
+<label for="loc">Location</label>
+<input type="text" name="place" id="loc">
+<br>
+</br>
+<input type="submit" value="Register" class="b1">
+<input type="reset" value="Reset" class="b2">
+</form>
+</center>
+<div id="about">
+    <p>
+        Urban Kart is one of the leading online store for many electronic devices used commonly in households
+        We are committed to provide the best interactive shopping experience to the customers in a seamless fashion.
+        
+    </p>
+</div>
+</body>
+</html>
